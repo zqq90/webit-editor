@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.github.zqq90.webit-script</groupId>
+    <artifactId>webit-editor</artifactId>
+    <version>0.2.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+    
+    <name>Webit Editor</name>
+    <description>Editor for Webit Script</description>
+    
+    <url>https://github.com/zqq90</url>
+    
+    <properties>
+        <!-- source encoding -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!-- java versions -->
+        <java.source.version>1.6</java.source.version>
+        <java.target.version>1.6</java.target.version>
+    </properties>
+    
+    <organization>
+        <name>Webit</name>
+        <url>https://github.com/zqq90</url>
+    </organization>
+    <licenses>
+        <license>
+            <name>The New BSD License</name>
+            <url>https://github.com/zqq90/webit-script/blob/master/LICENSE</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+    <developers>
+        <developer>
+            <id>zqq</id>
+            <name>Zhu Qingqing</name>
+            <email>zqq_90@163.com</email>
+            <timezone>+8</timezone>
+        </developer>
+    </developers>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <configuration>
+          <archive>
+            <manifest>
+              <mainClass>jsyntaxpane.SyntaxTester</mainClass>
+              <addClasspath>true</addClasspath>
+            </manifest>
+            <manifestEntries>
+              <mode>development</mode>
+              <url>${pom.url}</url>
+            </manifestEntries>
+          </archive>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>

@@ -74,15 +74,9 @@ import jsyntaxpane.lexers.DefaultJFlexLexer;
         this.interpolationFlag = interpolationFlag;
         yybegin(YYSTATEMENT);
         if(tokenLength!=0){
-            addToken(token(TokenType.COMMENT, tokenStart, tokenLength));
+            addToken(token(TokenType.TEXT_BLOCK, tokenStart, tokenLength));
         }
-        /*
-        if(interpolationFlag){
-            return token(TokenType.OPERATOR);
-        }else{
-            return token(TokenType.OPERATOR);
-        }*/
-        return new Token(TokenType.OPERATOR,  yychar() + offset + yylength()-2,2,(byte) (interpolationFlag? INTERPOLATION : STATEMENT));
+        return new Token(TokenType.TEXT_DELIMITER,  yychar() + offset + yylength()-2,2,(byte) (interpolationFlag? INTERPOLATION : STATEMENT));
     }
 
     //================ << user code
@@ -171,7 +165,7 @@ DelimiterInterpolationStartMatch   = [\\]* {DelimiterInterpolationStart}
 
   .|\n                                  { tokenLength += yylength(); }
 
- <<EOF>>                        { if(tokenLength!=0){addToken(token(TokenType.COMMENT, tokenStart, tokenLength));} return null; }
+ <<EOF>>                        { if(tokenLength!=0){addToken(token(TokenType.TEXT_BLOCK, tokenStart, tokenLength));} return null; }
 }
 
 
@@ -193,7 +187,6 @@ DelimiterInterpolationStartMatch   = [\\]* {DelimiterInterpolationStart}
   "switch"                       |
   "while"                        |
   "var"                          |
-  "function"                     |
   "#"                            |
   "return"                       |
   "this"                         |
@@ -203,22 +196,23 @@ DelimiterInterpolationStartMatch   = [\\]* {DelimiterInterpolationStart}
   "finally"                      |
   "native"                       |
   "static"                       |
-  "import"                       |
-  "include"                      |
   "echo"                         |
-  "@import"                      |
   "const"                        |
   "true"                         |
   "false"                        |
   "null"                         { return token(TokenType.KEYWORD); }
-  
+
+  "function"                     |
+  "import"                       |
+  "include"                      |
+  "@import"                      { return token(TokenType.KEYWORD2); }
   
   /* separators */
 
   "("                            { return token(TokenType.OPERATOR,  PARAN); }
   ")"                            { return token(TokenType.OPERATOR, -PARAN); }
   "{"                            { return token(TokenType.OPERATOR,  CURLY); }
-  "}"                            { if(!interpolationFlag){return token(TokenType.OPERATOR, -CURLY);}else{yybegin(YYTEXT); tokenStart = yychar+yylength(); tokenLength=0;return token(TokenType.OPERATOR, -INTERPOLATION);} }
+  "}"                            { if(!interpolationFlag){return token(TokenType.OPERATOR, -CURLY);}else{yybegin(YYTEXT); tokenStart = yychar+yylength(); tokenLength=0;return token(TokenType.TEXT_DELIMITER, -INTERPOLATION);} }
   "["                            { return token(TokenType.OPERATOR,  BRACKET); }
   "]"                            { return token(TokenType.OPERATOR, -BRACKET); }
   
@@ -301,7 +295,7 @@ DelimiterInterpolationStartMatch   = [\\]* {DelimiterInterpolationStart}
   {Identifier}                   { return token(TokenType.IDENTIFIER); }
 
   /* %> */
-  {DelimiterStatementEnd}        { yybegin(YYTEXT); tokenStart = yychar+yylength(); tokenLength=0;  return token(TokenType.OPERATOR, -STATEMENT);  }
+  {DelimiterStatementEnd}        { yybegin(YYTEXT); tokenStart = yychar+yylength(); tokenLength=0;  return token(TokenType.TEXT_DELIMITER, -STATEMENT);  }
 
 }
 

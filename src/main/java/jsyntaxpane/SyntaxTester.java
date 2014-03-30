@@ -34,8 +34,9 @@ public class SyntaxTester extends javax.swing.JFrame {
 		initComponents();
 		jCmbLangs.setModel(new DefaultComboBoxModel(DefaultSyntaxKit.getContentTypes()));
 		// jEdtTest.setContentType(jCmbLangs.getItemAt(0).toString());
-		jCmbLangs.setSelectedItem("text/java");
+		jCmbLangs.setSelectedItem("text/wit");
 		new CaretMonitor(jEdtTest, lblCaretPos);
+                this.setLocationRelativeTo(null);
 	}
 
 	/**

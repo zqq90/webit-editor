@@ -37,7 +37,12 @@ public enum TokenType {
     TYPE3,      // Types for users
     DEFAULT,    // any other text
     WARNING,    // Text that should be highlighted as a warning
-    ERROR;      // Text that signals an error
+    ERROR,      // Text that signals an error
+    
+    TEXT_DELIMITER,
+    TEXT_BLOCK,
+    
+    ;      
 
     /**
      * Tests if the given token is a Comment Token.

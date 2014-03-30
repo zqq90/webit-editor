@@ -70,6 +70,7 @@ import jsyntaxpane.util.JarServiceProvider;
 public class DefaultSyntaxKit extends DefaultEditorKit implements ViewFactory {
 
 	public static final String CONFIG_CARETCOLOR = "CaretColor";
+	public static final String CONFIG_BACKGROUND_COLOR = "BackgroundColor";
 	public static final String CONFIG_SELECTION = "SelectionColor";
 	public static final String CONFIG_COMPONENTS = "Components";
 	public static final String CONFIG_MENU = "PopupMenu";
@@ -332,6 +333,7 @@ public class DefaultSyntaxKit extends DefaultEditorKit implements ViewFactory {
 		editorPane.setFont(font);
 		Configuration conf = getConfig();
 		Color caretColor = conf.getColor(CONFIG_CARETCOLOR, Color.BLACK);
+                editorPane.setBackground(conf.getColor(CONFIG_BACKGROUND_COLOR, Color.WHITE));
 		editorPane.setCaretColor(caretColor);
 		Color selectionColor = getConfig().getColor(CONFIG_SELECTION, new Color(0x99ccff));
 		editorPane.setSelectionColor(selectionColor);
